@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import { useSelector, useDispatch } from 'react-redux';
+import { addContactActions } from '../../redux/contacts/contactsActions';
+import { getAllContacts } from 'redux/contacts/contacts-selector';
 
 import s from './ContactForm.module.css';
 
-const ContactForm = ({ addContacts }) => {
+const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+  const allContacts = useSelector(getAllContacts);
+  const dispatch = useDispatch();
 
   const handleChange = e => {
     const { name, value } = e.currentTarget;
@@ -24,13 +28,24 @@ const ContactForm = ({ addContacts }) => {
     }
   };
 
+  const contactsCheck = name => {
+    const normalizedNmae = name.toLowerCase();
+    for (const { name } of allContacts) {
+      if (name.toLowerCase() === normalizedNmae) {
+        return true;
+      }
+    }
+    return false;
+  };
+
   const handleSubmit = e => {
     e.preventDefault();
 
-    addContacts({
-      name,
-      number,
-    });
+    if (contactsCheck(name)) {
+      alert(`Контакт с именем ${name} уже существует в ваших контактах`);
+    } else {
+      dispatch(addContactActions({ name, number }));
+    }
 
     reset();
   };
@@ -77,10 +92,6 @@ const ContactForm = ({ addContacts }) => {
       </form>
     </>
   );
-};
-
-ContactForm.propTypes = {
-  addContacts: PropTypes.func.isRequired,
 };
 
 export default ContactForm;
