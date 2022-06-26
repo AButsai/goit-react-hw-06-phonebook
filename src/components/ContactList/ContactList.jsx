@@ -3,7 +3,7 @@ import {
   deleteContactsActions,
   filterContactsActions,
 } from 'redux/contacts/contactsActions';
-import { filterContact } from 'redux/contacts/contacts-selector';
+import { filterContact } from 'redux/contacts/contactsSelectors';
 import ContactListItem from 'components/ContactListItem';
 
 import s from './ContactList.module.css';

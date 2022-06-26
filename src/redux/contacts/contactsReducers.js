@@ -7,13 +7,18 @@ import {
 } from './contactsActions';
 
 const items = createReducer([], {
-  [addContactActions]: (state, { payload }) => [...state, payload],
-  [deleteContactsActions]: (state, { payload }) =>
-    [...state].filter(({ id }) => id !== payload),
+  [addContactActions]: (state, { payload }) => {
+    return [...state, payload];
+  },
+  [deleteContactsActions]: (state, { payload }) => {
+    return [...state].filter(({ id }) => id !== payload);
+  },
 });
 
 const filter = createReducer('', {
-  [filterContactsActions]: (_, { payload }) => payload,
+  [filterContactsActions]: (_state, { payload }) => {
+    return payload;
+  },
 });
 
 export default combineReducers({

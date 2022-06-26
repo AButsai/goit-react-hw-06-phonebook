@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 
 import { persistStore, persistReducer } from 'redux-persist';
 
-import contactsReduser from './contacts/contactsRedusers';
+import contactsReduser from './contacts/contactsReducers';
 import { contactsPersistConfig } from './contacts/contactsPersistConfig';
 
 import { middleware } from './contacts/contactsMiddleware';
